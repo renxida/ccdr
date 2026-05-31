@@ -1,0 +1,61 @@
+{
+  "topic": "roofline-math",
+  "citations": [
+    {
+      "conceptId": "roofline-model",
+      "tier": 2,
+      "claim": "attainable performance formula",
+      "value": "P = min(π, β × I)",
+      "source": "https://en.wikipedia.org/wiki/Roofline_model",
+      "note": "Wikipedia Roofline model article derives this directly from Williams, Waterman, Patterson (CACM 2009, doi:10.1145/1498765.1498785); notation π = peak FLOP/s, β = peak bandwidth (bytes/s), I = arithmetic intensity (FLOP/byte). The CACM paper expresses the same bound as: Attainable GFlops/sec = Min(Peak Floating Point Performance, Peak Memory Bandwidth × Operational Intensity)."
+    },
+    {
+      "conceptId": "roofline-model",
+      "tier": 1,
+      "claim": "roofline model definition",
+      "value": "bounds attainable performance as the minimum of peak compute and memory-bandwidth × arithmetic intensity",
+      "source": "https://dl.acm.org/doi/abs/10.1145/1498765.1498785",
+      "note": "Canonical source: Samuel Williams, Andrew Waterman, David Patterson, 'Roofline: An Insightful Visual Performance Model for Floating-Point Programs and Multicore Architectures', Communications of the ACM, vol. 52 no. 4, April 2009."
+    },
+    {
+      "conceptId": "arithmetic-intensity",
+      "tier": 2,
+      "claim": "arithmetic intensity definition and formula",
+      "value": "I = (total FLOPs) / (total bytes from DRAM)",
+      "source": "https://dl.acm.org/doi/abs/10.1145/1498765.1498785",
+      "note": "Williams et al. (CACM 2009) define operational intensity as FLOPs per byte of DRAM traffic (not cache traffic). The exact quote: 'operational intensity... is the ratio of floating-point operations to DRAM traffic'."
+    },
+    {
+      "conceptId": "ridge-point",
+      "tier": 2,
+      "claim": "ridge point formula and memory-bound vs compute-bound criterion",
+      "value": "I_ridge = π / β; memory-bound iff I < π/β, compute-bound iff I ≥ π/β",
+      "source": "https://en.wikipedia.org/wiki/Roofline_model",
+      "note": "Wikipedia Roofline article (sourced from Williams et al. CACM 2009) defines the ridge point as the intersection of the bandwidth roof and compute roof: 'the minimum arithmetic intensity required to achieve peak performance'. The formula I_ridge = π/β follows algebraically from setting β×I = π."
+    },
+    {
+      "conceptId": "littles-law",
+      "tier": 2,
+      "claim": "Little's Law formula",
+      "value": "L = λ × W (concurrency = throughput × latency)",
+      "source": "https://en.wikipedia.org/wiki/Little%27s_law",
+      "note": "Original proof: John D.C. Little, 'A Proof for the Queuing Formula: L = λW', Operations Research vol. 9 no. 3, 1961, pp. 383-387. Valid for any stable system regardless of arrival or service distribution; requires only stationarity. Wikipedia article and INFORMS 50th anniversary paper (doi:10.1287/opre.1110.0940) both confirm this."
+    },
+    {
+      "conceptId": "latency-throughput-tradeoff",
+      "tier": 2,
+      "claim": "throughput = concurrency / latency (rearrangement of Little's Law); batching raises arithmetic intensity",
+      "value": "throughput = L / W; batch size B multiplies arithmetic intensity of weight-reusing kernels by B",
+      "source": "https://modal.com/gpu-glossary/perf/littles-law",
+      "note": "Modal GPU Glossary applies Little's Law to GPU inference. The connection between batch size and arithmetic intensity is a direct consequence: for a matrix-vector multiply (inference at B=1), weights are read once per output token, giving I ~ 1 FLOP/byte. At batch B, the same weight bytes produce B output tokens, giving I ~ B FLOP/byte."
+    },
+    {
+      "conceptId": "allreduce-cost",
+      "tier": 2,
+      "claim": "ring all-reduce per-node data volume and time formula",
+      "value": "data per node = 2(N-1)/N × S; time ≈ 2(N-1)/N × S / B_link",
+      "source": "https://tech.preferred.jp/en/blog/technologies-behind-distributed-deep-learning-allreduce/",
+      "note": "Preferred Networks blog derives this from the two-phase ring algorithm (reduce-scatter + all-gather), each phase sending (N-1)/N × S bytes per node. The result '2N(P-1)/P' in their notation equals 2(N-1)/N × S. Consistent with Baidu's ring-allreduce paper and bandwidth-optimality proofs (Rabenseifner 2004)."
+    }
+  ]
+}

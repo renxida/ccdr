@@ -1,0 +1,156 @@
+{
+  "topic": "nvidia-gpu-hierarchy",
+  "title": "NVIDIA datacenter GPU hierarchy",
+  "concepts": [
+    {
+      "id": "ampere-a100",
+      "token": "ampere",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "ampere"
+        },
+        {
+          "tier": 1,
+          "text": "NVIDIA Ampere A100 SXM4: 80 GB HBM2e at 2.0 TB/s, 108 SMs, NVLink 3 at 600 GB/s per GPU",
+          "source": "https://www.nvidia.com/en-us/data-center/a100/"
+        },
+        {
+          "tier": 2,
+          "text": "The A100 SXM4 delivers 312 TFLOPS FP16 dense (624 TFLOPS with structured sparsity) from 108 streaming multiprocessors on GA100, fabricated on TSMC 7nm with 54 billion transistors.",
+          "source": "https://developer.nvidia.com/blog/nvidia-ampere-architecture-in-depth/"
+        },
+        {
+          "tier": 3,
+          "text": "The A100 80GB SXM4 carries HBM2e at 2,039 GB/s (~2.0 TB/s), double V100's bandwidth, and introduces TF32 at 312 TFLOPS dense (156 TFLOPS in official docs for some table revisions) and FP64 Tensor at 19.5 TFLOPS. NVLink 3 delivers 600 GB/s per GPU versus 300 GB/s on V100, enabling all-to-all communication across 8-GPU HGX baseboards via NVSwitch. At 312 TFLOPS FP16 dense and 2.0 TB/s bandwidth, the arithmetic intensity ridge point is 312e12 / 2e12 = 156 FLOP/byte - most LLM decode operations fall below this, making A100 memory-bandwidth bound on large-batch inference.",
+          "source": "https://www.nvidia.com/en-us/data-center/a100/"
+        }
+      ]
+    },
+    {
+      "id": "hopper-h100",
+      "token": "hopper",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "hopper"
+        },
+        {
+          "tier": 1,
+          "text": "NVIDIA Hopper H100 SXM5: 80 GB HBM3 at 3.35 TB/s, 132 SMs, NVLink 4 at 900 GB/s per GPU",
+          "source": "https://www.nvidia.com/en-us/data-center/h100/"
+        },
+        {
+          "tier": 2,
+          "text": "The H100 SXM5 delivers 989 TFLOPS FP16 dense (1,979 TFLOPS sparse) and 1,979 TFLOPS FP8 dense (3,958 TFLOPS sparse) via fourth-generation Tensor Cores with the new Transformer Engine; FP8 is a capability absent from A100.",
+          "source": "https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/"
+        },
+        {
+          "tier": 3,
+          "text": "H100 SXM5 uses GH100 on TSMC 4N (4 nm class) with 80 billion transistors; 132 of the die's 144 SMs are enabled. Memory bandwidth jumps from A100's 2.0 TB/s to 3.35 TB/s (1.67x), and NVLink 4 doubles per-GPU bandwidth from 600 GB/s to 900 GB/s. The new FP8 Transformer Engine allows up to 9x faster LLM training over A100 by fusing attention in a dedicated hardware block. Ridge point at FP16 dense: 989e12 / 3.35e12 ~ 295 FLOP/byte - larger models with reuse push many workloads above this, making H100 more compute-bound than A100 for the same batch sizes.",
+          "source": "https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/"
+        }
+      ]
+    },
+    {
+      "id": "hopper-h200",
+      "token": "h200",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "h200"
+        },
+        {
+          "tier": 1,
+          "text": "NVIDIA H200 SXM: same Hopper compute die as H100 but 141 GB HBM3e at 4.8 TB/s, NVLink 4 at 900 GB/s per GPU",
+          "source": "https://www.nvidia.com/en-us/data-center/h200/"
+        },
+        {
+          "tier": 2,
+          "text": "The H200 replaces H100's 80 GB HBM3 with 141 GB HBM3e, a 76% capacity increase and 43% bandwidth increase (3.35 TB/s to 4.8 TB/s); compute FLOPS are identical to H100 SXM5 since the GH100 die is unchanged.",
+          "source": "https://www.nvidia.com/en-us/data-center/h200/"
+        },
+        {
+          "tier": 3,
+          "text": "H200's 4.8 TB/s bandwidth lowers the arithmetic intensity ridge point from H100's ~295 to ~206 FLOP/byte (at FP16 dense 989 TFLOPS), making a larger fraction of workloads compute-bound and improving throughput for memory-starved operations like large-context inference. The 141 GB capacity (versus 80 GB on H100) allows serving 70B-parameter models in full FP16 without tensor-parallelism across GPUs, reducing inter-GPU traffic and latency.",
+          "source": "https://www.nvidia.com/en-us/data-center/h200/"
+        }
+      ]
+    },
+    {
+      "id": "blackwell-b200",
+      "token": "blackwell",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "blackwell"
+        },
+        {
+          "tier": 1,
+          "text": "NVIDIA Blackwell B200: 192 GB HBM3e at 8.0 TB/s, dual-die GB100, NVLink 5 at 1.8 TB/s per GPU",
+          "source": "https://www.nvidia.com/en-us/data-center/dgx-b200/"
+        },
+        {
+          "tier": 2,
+          "text": "The B200 delivers 9,000 TFLOPS FP4 dense (18,000 TFLOPS sparse) and 4,500 TFLOPS FP8 dense via fifth-generation Tensor Cores; FP4 is a new precision absent from Hopper that doubles FP8 throughput and halves model memory footprint.",
+          "source": "https://www.civo.com/blog/comparing-nvidia-b200-and-h100"
+        },
+        {
+          "tier": 3,
+          "text": "B200 packages two reticle-limited GB100 dies connected by a 10 TB/s NV-HBI chip-to-chip link; combined transistor count is 208 billion on TSMC 4NP. Memory bandwidth doubles Hopper H100 (2.39x: 8.0 vs 3.35 TB/s) and NVLink 5 doubles H100's NVLink 4 bandwidth (1.8 TB/s vs 900 GB/s). At FP4 dense (9,000 TFLOPS) and 8.0 TB/s, the ridge point is 1,125 FLOP/byte - frontier LLM prefill with weight reuse sits well above this, making B200 compute-bound on FP4 inference, unlike H100 where decode is bandwidth-bound.",
+          "source": "https://www.nvidia.com/en-us/data-center/dgx-b200/"
+        }
+      ]
+    },
+    {
+      "id": "nvlink-domain",
+      "token": "nvlink",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "nvlink"
+        },
+        {
+          "tier": 1,
+          "text": "NVLink is NVIDIA's high-bandwidth GPU-to-GPU interconnect: gen 3 (A100) 600 GB/s, gen 4 (H100/H200) 900 GB/s, gen 5 (B200) 1.8 TB/s per GPU",
+          "source": "https://developer.nvidia.com/blog/nvidia-gb200-nvl72-delivers-trillion-parameter-llm-training-and-real-time-inference/"
+        },
+        {
+          "tier": 2,
+          "text": "NVLink 5 on B200 delivers 1.8 TB/s bidirectional per GPU - over 14x PCIe Gen5 bandwidth - and NVSwitch enables a 130 TB/s aggregate domain across all 72 GPUs in a GB200 NVL72 rack.",
+          "source": "https://developer.nvidia.com/blog/nvidia-gb200-nvl72-delivers-trillion-parameter-llm-training-and-real-time-inference/"
+        },
+        {
+          "tier": 3,
+          "text": "NVLink generations track GPU generations: NVLink 3 on A100 SXM4 provides 600 GB/s, doubling V100's 300 GB/s; NVLink 4 on H100/H200 SXM raises this to 900 GB/s; NVLink 5 on B200 reaches 1.8 TB/s. These per-GPU bandwidths set the all-reduce ceiling for tensor-parallel training - a 72-GPU GB200 NVL72 ring would need NVLink's 1.8 TB/s per GPU to prevent gradient synchronization from dominating compute at large model widths. NVSwitch, a dedicated switching chip co-packaged on HGX/HGX+ baseboards, provides the non-blocking fabric that turns point-to-point NVLink into a fully connected mesh.",
+          "source": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/"
+        }
+      ]
+    },
+    {
+      "id": "gb200-nvl72-rack",
+      "token": "gb200",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "gb200"
+        },
+        {
+          "tier": 1,
+          "text": "GB200 NVL72: rack-scale unit of 72 Blackwell GPUs and 36 Grace CPUs in a single liquid-cooled NVLink domain delivering 1.44 exaFLOPS FP4 sparse",
+          "source": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/"
+        },
+        {
+          "tier": 2,
+          "text": "The GB200 NVL72 rack holds 13.4 TB of HBM3e across 72 B200 GPUs (~186 GB per GPU in the NVL72 configuration) with 576 TB/s aggregate memory bandwidth and a 130 TB/s NVLink interconnect domain - enabling it to serve a 1-trillion-parameter model without inter-rack communication.",
+          "source": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/"
+        },
+        {
+          "tier": 3,
+          "text": "Each GB200 compute tray pairs two B200 GPUs with one Grace CPU via NVLink-C2C at 900 GB/s, avoiding PCIe latency for CPU-GPU transfers. At 1,440 PFLOPS FP4 sparse aggregate, the NVL72 rack delivers roughly 30x the LLM inference throughput of an equivalent H100 rack per NVIDIA benchmarks. The 576 TB/s aggregate memory bandwidth means the average per-GPU bandwidth (8 TB/s) is maintained at full rack scale - no bandwidth tax for scaling from 1 to 72 GPUs within the NVLink domain.",
+          "source": "https://developer.nvidia.com/blog/nvidia-gb200-nvl72-delivers-trillion-parameter-llm-training-and-real-time-inference/"
+        }
+      ]
+    }
+  ]
+}

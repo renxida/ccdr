@@ -1,0 +1,133 @@
+{
+  "topic": "nvidia-gpu-hierarchy",
+  "citations": [
+    {
+      "conceptId": "ampere-a100",
+      "tier": 1,
+      "claim": "A100 SXM4 carries 80 GB HBM2e at 2.0 TB/s, 108 SMs, NVLink 3 at 600 GB/s per GPU",
+      "value": "80 GB HBM2e | 2,039 GB/s (~2.0 TB/s) | 108 SMs | NVLink 3: 600 GB/s",
+      "source": "https://www.nvidia.com/en-us/data-center/a100/",
+      "note": "Memory bandwidth figure: 2,039 GB/s from official A100 product page. HBM2e (not HBM3). NVLink 3 via 12 links at 50 GB/s each direction = 600 GB/s bidirectional. SM count from Ampere whitepaper (108 of 128 on GA100 die enabled)."
+    },
+    {
+      "conceptId": "ampere-a100",
+      "tier": 2,
+      "claim": "A100 SXM4 delivers 312 TFLOPS FP16 dense (624 TFLOPS sparse), 108 SMs on GA100 on TSMC 7nm with 54B transistors",
+      "value": "FP16 Tensor Core: 312 TFLOPS dense / 624 TFLOPS sparse | GA100 | TSMC 7nm | 54.2B transistors",
+      "source": "https://developer.nvidia.com/blog/nvidia-ampere-architecture-in-depth/",
+      "note": "FP16 and BF16 both 312 TFLOPS dense / 624 TFLOPS sparse. TF32: 156 TFLOPS dense / 312 TFLOPS sparse (some NVIDIA tables list 312 dense for TF32 in a later revision; 156 TFLOPS is from the Ampere In-Depth blog). FP64: 19.5 TFLOPS dense. All FLOPS are for A100 80GB SXM4. Sparse = structured 2:4 sparsity."
+    },
+    {
+      "conceptId": "ampere-a100",
+      "tier": 3,
+      "claim": "NVLink 3 on A100 delivers 600 GB/s per GPU, double V100's 300 GB/s; HGX A100 baseboard has 8 GPUs + 6 NVSwitch nodes",
+      "value": "A100 NVLink: 600 GB/s | V100 NVLink: 300 GB/s | HGX baseboard: 8 GPUs + 6 NVSwitch",
+      "source": "https://developer.nvidia.com/blog/introducing-hgx-a100-most-powerful-accelerated-server-platform-for-ai-hpc/",
+      "note": "NVLink bandwidth is bidirectional aggregate per GPU. PCIe Gen4 x16 provides 64 GB/s bidirectional for comparison; NVLink 3 is ~9.4x faster."
+    },
+    {
+      "conceptId": "hopper-h100",
+      "tier": 1,
+      "claim": "H100 SXM5: 80 GB HBM3 at 3.35 TB/s, 132 SMs, NVLink 4 at 900 GB/s per GPU",
+      "value": "80 GB HBM3 | 3.35 TB/s | 132 SMs | NVLink 4: 900 GB/s",
+      "source": "https://www.nvidia.com/en-us/data-center/h100/",
+      "note": "HBM3 (not HBM2e or HBM3e). 3.35 TB/s directly from NVIDIA H100 product page specs table. NVLink 4 via 18 links. 132 of 144 SMs on GH100 die enabled."
+    },
+    {
+      "conceptId": "hopper-h100",
+      "tier": 2,
+      "claim": "H100 SXM5: 989 TFLOPS FP16 dense, 1,979 TFLOPS FP16 sparse, 1,979 TFLOPS FP8 dense, 3,958 TFLOPS FP8 sparse",
+      "value": "FP16 Tensor: 989 TFLOPS dense / 1,979 TFLOPS sparse | FP8 Tensor: 1,979 TFLOPS dense / 3,958 TFLOPS sparse",
+      "source": "https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/",
+      "note": "NVIDIA product page quotes sparse figures with asterisk; dense figures are half. FP8 is new in Hopper — absent from A100/Ampere. BF16 same as FP16. TF32: 989 TFLOPS sparse / ~494 TFLOPS dense. FP64 Tensor: 67 TFLOPS (no sparsity benefit). Sparse = structured 2:4 sparsity."
+    },
+    {
+      "conceptId": "hopper-h100",
+      "tier": 3,
+      "claim": "GH100 die on TSMC 4N (4nm class), 80 billion transistors, 814 mm²; H100 SXM5 TDP 700W",
+      "value": "GH100: TSMC 4N | 80B transistors | 814 mm² | H100 SXM5 TDP: 700W",
+      "source": "https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/",
+      "note": "TSMC 4N is a customized 4nm-class process node. GA100 (A100) was TSMC 7nm N7. Up to 9x LLM training speedup over A100 is NVIDIA's claimed figure for multi-GPU large-model workloads, not a per-GPU compute ratio."
+    },
+    {
+      "conceptId": "hopper-h200",
+      "tier": 1,
+      "claim": "H200 SXM: 141 GB HBM3e at 4.8 TB/s, NVLink 4 at 900 GB/s per GPU — same compute die (GH100) as H100",
+      "value": "141 GB HBM3e | 4.8 TB/s | NVLink 4: 900 GB/s | GH100 die (same as H100)",
+      "source": "https://www.nvidia.com/en-us/data-center/h200/",
+      "note": "HBM3e (higher bandwidth variant than HBM3). 4.8 TB/s is 1.43x H100's 3.35 TB/s. Capacity is 1.76x H100's 80 GB. Compute FLOPS identical to H100 SXM5 — same GH100 die, same SM count (132), same Tensor Core counts."
+    },
+    {
+      "conceptId": "hopper-h200",
+      "tier": 2,
+      "claim": "H200 FP8 sparse TFLOPS: 3,958 (identical to H100), FP16 sparse: 1,979 TFLOPS; memory upgrade only vs H100",
+      "value": "FP8 Tensor: 3,958 TFLOPS sparse (same as H100) | FP16 Tensor: 1,979 TFLOPS sparse (same as H100)",
+      "source": "https://www.nvidia.com/en-us/data-center/h200/",
+      "note": "H200 product page shows same Tensor Core FLOPS as H100 SXM. Performance improvement is entirely from memory subsystem. H200 FP8 dense: ~1,979 TFLOPS (half of sparse)."
+    },
+    {
+      "conceptId": "blackwell-b200",
+      "tier": 1,
+      "claim": "B200: 192 GB HBM3e at 8.0 TB/s, dual-die GB100, NVLink 5 at 1.8 TB/s per GPU",
+      "value": "192 GB HBM3e | 8.0 TB/s | NVLink 5: 1.8 TB/s | dual GB100 dies | 208B transistors",
+      "source": "https://www.nvidia.com/en-us/data-center/dgx-b200/",
+      "note": "DGX B200 page shows 1,440 GB / 8 GPUs = 180 GB per GPU in DGX form factor; standalone HGX B200 spec is 192 GB. Using 192 GB as canonical B200 spec per NVIDIA GTC 2024 announcement. Memory bandwidth 8.0 TB/s confirmed across multiple NVIDIA sources. NVLink 5 bidirectional per GPU."
+    },
+    {
+      "conceptId": "blackwell-b200",
+      "tier": 2,
+      "claim": "B200: FP4 dense 9,000 TFLOPS, FP4 sparse 18,000 TFLOPS; FP8 dense 4,500 TFLOPS; FP16 dense 2,250 TFLOPS",
+      "value": "FP4 Tensor: 9,000 TFLOPS dense / 18,000 TFLOPS sparse | FP8 Tensor: 4,500 TFLOPS dense | FP16 Tensor: 2,250 TFLOPS dense",
+      "source": "https://www.civo.com/blog/comparing-nvidia-b200-and-h100",
+      "note": "FP4 is new in Blackwell; absent from Hopper/Ampere. These are single-GPU figures. The oft-cited '20 petaFLOPS' headline refers to the GB200 superchip (2 B200 GPUs = ~18,000 TFLOPS FP4 sparse ≈ 18 PFLOPS, or includes a different accounting). Sparse = structured 2:4 sparsity. FP8 on B200 is 4,500 TFLOPS dense vs H100's 1,979 TFLOPS dense (2.27x improvement)."
+    },
+    {
+      "conceptId": "blackwell-b200",
+      "tier": 3,
+      "claim": "B200 two GB100 dies connected by 10 TB/s NV-HBI; 208B transistors on TSMC 4NP; FP64: ~37 TFLOPS",
+      "value": "NV-HBI: 10 TB/s chip-to-chip | 208B transistors | TSMC 4NP | FP64: ~37 TFLOPS",
+      "source": "https://www.civo.com/blog/comparing-nvidia-b200-and-h100",
+      "note": "TSMC 4NP is a refined 4nm-class process. NV-HBI (NV High Bandwidth Interface) connects the two dies in a single unified GPU address space. FP64 figure sourced from civo article comparative table; treat as ~90% confidence — NVIDIA has not prominently published a standalone B200 FP64 TFLOPS in accessible datasheets."
+    },
+    {
+      "conceptId": "nvlink-domain",
+      "tier": 1,
+      "claim": "NVLink per-GPU bandwidth: gen3 (A100) 600 GB/s, gen4 (H100/H200) 900 GB/s, gen5 (B200) 1.8 TB/s",
+      "value": "NVLink 3: 600 GB/s | NVLink 4: 900 GB/s | NVLink 5: 1.8 TB/s (all bidirectional per GPU)",
+      "source": "https://developer.nvidia.com/blog/nvidia-gb200-nvl72-delivers-trillion-parameter-llm-training-and-real-time-inference/",
+      "note": "All figures are bidirectional aggregate per GPU. NVLink 5 is >14x PCIe Gen5 x16 (128 GB/s). Each generation doubles the previous. V100 NVLink 2 was 300 GB/s for reference."
+    },
+    {
+      "conceptId": "nvlink-domain",
+      "tier": 2,
+      "claim": "GB200 NVL72 NVLink domain: 130 TB/s aggregate across 72 GPUs; NVSwitch provides non-blocking all-to-all fabric",
+      "value": "130 TB/s aggregate NVLink domain | 72 GPUs | NVSwitch non-blocking fabric",
+      "source": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+      "note": "130 TB/s directly from NVIDIA GB200 NVL72 product page. Per-GPU NVLink remains 1.8 TB/s; the 130 TB/s is the NVSwitch fabric aggregate bisection bandwidth. NVSwitch in NVL72 connects all 72 GPUs in a single domain — largest NVLink domain ever offered at product launch."
+    },
+    {
+      "conceptId": "gb200-nvl72-rack",
+      "tier": 1,
+      "claim": "GB200 NVL72: 72 Blackwell GPUs + 36 Grace CPUs, 1,440 PFLOPS FP4 sparse aggregate, 130 TB/s NVLink",
+      "value": "72 B200 GPUs | 36 Grace CPUs | 1,440 PFLOPS FP4 sparse | 130 TB/s NVLink",
+      "source": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+      "note": "1,440 PFLOPS = 1.44 exaFLOPS. This is FP4 with structured sparsity. Dense FP4 aggregate would be 720 PFLOPS. FP8 sparse aggregate: 720 PFLOPS. 36 Grace CPUs × 2 = 72 CPU dies total."
+    },
+    {
+      "conceptId": "gb200-nvl72-rack",
+      "tier": 2,
+      "claim": "GB200 NVL72: 13.4 TB HBM3e total, 576 TB/s aggregate memory bandwidth, ~186 GB per GPU in NVL72 config",
+      "value": "13.4 TB HBM3e | 576 TB/s aggregate bandwidth | ~186 GB per GPU (13.4 TB / 72)",
+      "source": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+      "note": "Per-GPU bandwidth: 576 TB/s / 72 = 8 TB/s, consistent with standalone B200 spec. Per-GPU capacity in NVL72 is 13.4 TB / 72 ≈ 186 GB — slightly less than the 192 GB standalone B200 spec, reflecting this specific rack SKU configuration. NVIDIA product page values cited directly."
+    },
+    {
+      "conceptId": "gb200-nvl72-rack",
+      "tier": 3,
+      "claim": "GB200 NVLink-C2C (CPU-GPU) delivers 900 GB/s bidirectional; NVL72 provides ~30x LLM inference vs H100",
+      "value": "NVLink-C2C: 900 GB/s | ~30x H100 inference speedup per NVIDIA",
+      "source": "https://developer.nvidia.com/blog/nvidia-gb200-nvl72-delivers-trillion-parameter-llm-training-and-real-time-inference/",
+      "note": "NVLink-C2C (chip-to-chip) connects Grace CPU to B200 GPU within each GB200 compute tray at 900 GB/s bidirectional — same bandwidth as NVLink 4, far exceeding PCIe Gen5 (128 GB/s). The 30x inference speedup is NVIDIA's own benchmark claim for trillion-parameter models; treat as ~85% confidence for typical production workloads since it is measured under specific model/batch conditions."
+    }
+  ]
+}

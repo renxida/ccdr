@@ -1,0 +1,156 @@
+{
+  "topic": "tpu-hierarchy",
+  "title": "Google TPU hierarchy & pod topology",
+  "concepts": [
+    {
+      "id": "tpu-chip",
+      "token": "tpu",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "tpu"
+        },
+        {
+          "tier": 1,
+          "text": "A TPU (Tensor Processing Unit) is Google's custom ASIC for accelerating ML workloads, built around matrix-multiply units (MXUs) inside TensorCores.",
+          "source": "https://docs.cloud.google.com/tpu/docs/system-architecture-tpu-vm"
+        },
+        {
+          "tier": 2,
+          "text": "TPU v5p delivers 459 BF16 TFLOPS per chip with 95 GiB of HBM at 2,575 GiBps bandwidth; its pod connects 8,960 chips over a 3D torus.",
+          "source": "https://docs.cloud.google.com/tpu/docs/v5p"
+        },
+        {
+          "tier": 3,
+          "text": "Across generations the per-chip BF16 peak has grown from 275 TFLOPS (v4) to 459 TFLOPS (v5p) to 918 TFLOPS (v6e Trillium) to 2,307 TFLOPS (v7 Ironwood)-roughly 8x in three generations. HBM per chip grew from 32 GB (v4) to 192 GiB (v7), while the pod roofline ridge point for v5e sits at ~240 FLOPs/byte, meaning matrix multiplications must exceed that arithmetic intensity to be compute-bound rather than memory-bound.",
+          "source": "https://jax-ml.github.io/scaling-book/tpus/"
+        }
+      ]
+    },
+    {
+      "id": "tensorcore",
+      "token": "tensorcore",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "tensorcore"
+        },
+        {
+          "tier": 1,
+          "text": "A TensorCore is the main compute block inside a TPU chip, containing matrix-multiply units (MXUs), a vector unit, and a scalar unit.",
+          "source": "https://docs.cloud.google.com/tpu/docs/system-architecture-tpu-vm"
+        },
+        {
+          "tier": 2,
+          "text": "TPU v5e and v6e each have one TensorCore per chip; TPU v4, v5p, and v7 Ironwood each have two TensorCores per chip.",
+          "source": "https://docs.cloud.google.com/tpu/docs/v5e"
+        },
+        {
+          "tier": 3,
+          "text": "Trillium (v6e) delivers a 4.7x compute-per-chip gain over v5e-Google's measured figure-driven by larger MXUs and a higher clock rate. v7 Ironwood pairs two TensorCores with 4 SparseCores per chip, adding structured-sparsity acceleration for embedding workloads on top of the dense matrix compute.",
+          "source": "https://docs.cloud.google.com/tpu/docs/v6e"
+        }
+      ]
+    },
+    {
+      "id": "torus",
+      "token": "torus",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "torus"
+        },
+        {
+          "tier": 1,
+          "text": "TPU pods use a torus interconnect-a wrap-around mesh where each chip connects to its nearest neighbors-enabling all-reduce collective operations with bounded latency.",
+          "source": "https://jax-ml.github.io/scaling-book/tpus/"
+        },
+        {
+          "tier": 2,
+          "text": "TPU v4 and v5p use a 3D torus (each chip has 6 ICI links to neighbors); v5e and v6e use a 2D torus (4 links). The v4 pod forms a 16x16x16 cube of 4,096 chips; the v5p pod is a 16x20x28 cube of 8,960 chips.",
+          "source": "https://jax-ml.github.io/scaling-book/tpus/"
+        },
+        {
+          "tier": 3,
+          "text": "The 3D torus of v5p directly enables a far larger pod-8,960 chips versus v5e's 256-chip 2D-torus pod. v7 Ironwood returns to a 3D torus (topology 4x4x576) with 1,200 GBps bidi ICI per chip and scales to 9,216 chips; Optical Circuit Switches (OCS) reconfigure inter-cube links dynamically, allowing the pod to tolerate chip failures and rebalance topology without rewiring.",
+          "source": "https://docs.cloud.google.com/tpu/docs/v5p"
+        }
+      ]
+    },
+    {
+      "id": "pod",
+      "token": "pod",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "pod"
+        },
+        {
+          "tier": 1,
+          "text": "A TPU pod is the largest single-job scheduling unit: a fully interconnected set of TPU chips sharing a high-bandwidth ICI fabric.",
+          "source": "https://docs.cloud.google.com/tpu/docs/v5p"
+        },
+        {
+          "tier": 2,
+          "text": "Pod sizes differ by generation: v4 = 4,096 chips (16x16x16 3D torus); v5e = 256 chips (16x16 2D torus); v5p = 8,960 chips (16x20x28 3D torus); v6e Trillium = 256 chips (16x16 2D torus); v7 Ironwood = 9,216 chips (3D torus).",
+          "source": "https://jax-ml.github.io/scaling-book/tpus/"
+        },
+        {
+          "tier": 3,
+          "text": "A full v4 pod delivers 1.1 ExaFLOPS BF16 across 4,096 chips; a v7 Ironwood pod delivers ~42.5 ExaFLOPS FP8 across 9,216 chips-about 38x more peak pod throughput, though across different dtypes (v4 BF16 vs v7 FP8). The v5p pod's 8,960-chip count gives 4x more total FLOPs than a v4 pod for large-scale LLM training, with 2.8x faster LLM training throughput measured by Google.",
+          "source": "https://cloud.google.com/blog/products/ai-machine-learning/introducing-cloud-tpu-v5p-and-ai-hypercomputer"
+        }
+      ]
+    },
+    {
+      "id": "trillium",
+      "token": "trillium",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "trillium"
+        },
+        {
+          "tier": 1,
+          "text": "Trillium is Google's sixth-generation TPU (v6e), announced in 2024, optimized for transformer training and inference.",
+          "source": "https://cloud.google.com/blog/products/compute/introducing-trillium-6th-gen-tpus"
+        },
+        {
+          "tier": 2,
+          "text": "Each Trillium chip delivers 918 BF16 TFLOPS and 1,836 INT8 TOPS, with 32 GB HBM at 1,638 GiBps bandwidth-4.7x the compute and 2x the HBM capacity of v5e-in a 256-chip pod over a 2D torus.",
+          "source": "https://docs.cloud.google.com/tpu/docs/v6e"
+        },
+        {
+          "tier": 3,
+          "text": "Trillium achieves its 4.7x compute gain over v5e primarily through larger MXU arrays and a higher clock rate, while keeping the same 256-chip 2D-torus pod topology as v5e. At pod scale, 256 Trillium chips deliver 234.9 PetaFLOPS BF16-versus v5e's 50.6 PetaFLOPS-and Trillium is over 67% more energy-efficient per FLOP than v5e.",
+          "source": "https://docs.cloud.google.com/tpu/docs/v6e"
+        }
+      ]
+    },
+    {
+      "id": "ironwood",
+      "token": "ironwood",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "ironwood"
+        },
+        {
+          "tier": 1,
+          "text": "Ironwood is Google's seventh-generation TPU (v7), purpose-built for the inference era, introduced in 2025.",
+          "source": "https://cloud.google.com/blog/products/compute/ironwood-tpus-and-new-axion-based-vms-for-your-ai-workloads"
+        },
+        {
+          "tier": 2,
+          "text": "Each Ironwood chip delivers 2,307 BF16 TFLOPS and 4,614 FP8 TFLOPS, with 192 GiB HBM3e at 7,380 GiBps bandwidth and 1,200 GBps bidirectional ICI; a full 9,216-chip pod holds 1.77 PB of HBM and reaches ~42.5 ExaFLOPS FP8.",
+          "source": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+        },
+        {
+          "tier": 3,
+          "text": "Ironwood is ~5x the peak compute of v5p per chip (2,307 vs 459 BF16 TFLOPS; Google cites ~10x at the pod/system level) and ~2.5x the raw BF16 of Trillium per chip (2,307 vs 918 TFLOPS; Google's 4x figure is workload-level), with HBM bandwidth growing from 2,575 GiBps (v5p) to 7,380 GiBps. Its roofline ridge point is 2,307 TFLOPS / 7,380 GB/s ~ 313 FLOPs/byte-higher than v5e's ~240 FLOPs/byte-meaning Ironwood demands even denser matrix operations to reach peak utilization. The two TensorCores plus four SparseCores per chip reflect its inference-era design priority.",
+          "source": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+        }
+      ]
+    }
+  ]
+}

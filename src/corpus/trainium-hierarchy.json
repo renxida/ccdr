@@ -1,0 +1,156 @@
+{
+  "topic": "trainium-hierarchy",
+  "title": "AWS Trainium hierarchy",
+  "concepts": [
+    {
+      "id": "neuroncore",
+      "token": "neuroncore",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "neuroncore"
+        },
+        {
+          "tier": 1,
+          "text": "NeuronCore is the compute unit inside every AWS Trainium chip.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/neuron-core-v3.html"
+        },
+        {
+          "tier": 2,
+          "text": "Each NeuronCore-v3 (the core in Trainium2) contains four engines-Tensor, Vector, Scalar, and GPSIMD-plus 28 MB of on-chip SRAM, delivering 158 cFP8 TFLOPS and 79 BF16 TFLOPS per core.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/neuron-core-v3.html"
+        },
+        {
+          "tier": 3,
+          "text": "NeuronCore-v2 (Trainium1) had 2 cores per chip at 190 BF16 TFLOPS total; NeuronCore-v3 (Trainium2) packs 8 cores per chip at 667 BF16 TFLOPS total-a 3.5x BF16 improvement per chip. NeuronCore-v3 also adds Structured Sparsity (up to 316 TFLOPS per core sparse) and configurable FP8, neither of which existed in v2.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/neuron-core-v3.html"
+        }
+      ]
+    },
+    {
+      "id": "trainium2-chip",
+      "token": "trainium",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "trainium"
+        },
+        {
+          "tier": 1,
+          "text": "Trainium2 is the second-generation AWS custom AI training chip, containing 8 NeuronCore-v3 cores.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trainium2.html"
+        },
+        {
+          "tier": 2,
+          "text": "One Trainium2 chip carries 96 GiB of HBM with 2.9 TB/s of HBM bandwidth and delivers 1,299 FP8 TFLOPS (dense) and 667 BF16 TFLOPS.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trainium2.html"
+        },
+        {
+          "tier": 3,
+          "text": "Trainium1 had 32 GB HBM and 820 GB/s bandwidth per chip; Trainium2 triples HBM to 96 GiB and raises bandwidth 3.5x to 2.9 TB/s. FP8 compute jumps from ~190 TFLOPS to 1,299 TFLOPS per chip (6.8x). Trainium2 also adds NeuronLink-v3 for 1,024 GB/s chip-to-chip interconnect, replacing NeuronLink-v2.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        }
+      ]
+    },
+    {
+      "id": "neuronlink",
+      "token": "neuronlink",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "neuronlink"
+        },
+        {
+          "tier": 1,
+          "text": "NeuronLink is the proprietary chip-to-chip interconnect that connects Trainium chips within and across instances.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        },
+        {
+          "tier": 2,
+          "text": "NeuronLink-v3 on Trn2 provides 1,024 GB/s of intra-instance bandwidth per chip, arranged in a 2D torus topology; the UltraServer inter-instance links run at 256 GB/s per chip.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        },
+        {
+          "tier": 3,
+          "text": "NeuronLink-v2 on Trainium1 ran at 384 GB/s per chip; NeuronLink-v3 on Trainium2 raises intra-instance bandwidth to 1,024 GB/s per chip-a 2.7x increase. The bandwidth is high enough that 16 chips in one Trn2 instance share memory with near-uniform latency, enabling model parallelism without EFA overhead for intra-host traffic.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        }
+      ]
+    },
+    {
+      "id": "trn2-instance",
+      "token": "trn",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "trn"
+        },
+        {
+          "tier": 1,
+          "text": "The trn2.48xlarge is the EC2 instance type built on Trainium2, housing 16 chips connected by NeuronLink-v3.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        },
+        {
+          "tier": 2,
+          "text": "A trn2.48xlarge instance contains 16 Trainium2 chips, 1,536 GiB of total HBM, 46.4 TB/s of HBM bandwidth, and 20.8 FP8 PFLOPS of dense compute, with 3,200 Gbps of EFAv3 networking.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        },
+        {
+          "tier": 3,
+          "text": "The Trn1 predecessor (trn1.32xlarge) had 16 Trainium1 chips, 512 GB HBM, and 9.8 TB/s bandwidth; the Trn2 instance multiplies HBM to 1,536 GiB (3x) and bandwidth to 46.4 TB/s (4.7x). BF16 compute jumps from ~3 PFLOPS (Trn1) to 10.7 PFLOPS (Trn2). The arithmetic intensity ceiling rises proportionally, widening the compute-bound region in the roofline model and making large transformer matmuls more likely to hit peak FLOPS rather than memory bandwidth.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        }
+      ]
+    },
+    {
+      "id": "ultraserver",
+      "token": "ultraserver",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "ultraserver"
+        },
+        {
+          "tier": 1,
+          "text": "A Trn2 UltraServer is four trn2u.48xlarge instances joined by NeuronLink-v3 into a single scale-up domain of 64 Trainium2 chips.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        },
+        {
+          "tier": 2,
+          "text": "The Trn2 UltraServer delivers 83.2 FP8 PFLOPS and 42.8 BF16 PFLOPS across 64 chips, with 6,144 GiB of total HBM and 185.6 TB/s of aggregate HBM bandwidth.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        },
+        {
+          "tier": 3,
+          "text": "The UltraServer uses NeuronLink-v3 at 256 GB/s per chip for cross-instance links (vs 1,024 GB/s intra-instance), allowing all 512 NeuronCore-v3 cores to participate in model parallelism without relying on EFA for that traffic. At 83.2 FP8 PFLOPS and 185.6 TB/s memory bandwidth, the roofline arithmetic intensity knee sits at roughly 83,200 / 185.6 ~ 448 FLOPS/byte-operations above that threshold are compute-bound; below it are memory-bound.",
+          "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html"
+        }
+      ]
+    },
+    {
+      "id": "ultracluster",
+      "token": "ultracluster",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "ultracluster"
+        },
+        {
+          "tier": 1,
+          "text": "An UltraCluster is a large-scale fleet of Trn instances networked together via EFA for distributed training across thousands of chips.",
+          "source": "https://aws.amazon.com/ec2/instance-types/trn2/"
+        },
+        {
+          "tier": 2,
+          "text": "Trn2 instances support 3,200 Gbps of EFAv3 per instance for inter-node communication; a Trn2 UltraServer scales that to 12,800 Gbps of EFAv3, enabling UltraClusters to aggregate many UltraServers with low-latency all-reduce operations.",
+          "source": "https://aws.amazon.com/ec2/instance-types/trn2/"
+        },
+        {
+          "tier": 3,
+          "text": "The two-level hierarchy matters for comms math: within a Trn2 UltraServer, chip-to-chip traffic uses NeuronLink-v3 at up to 1,024 GB/s per chip (no EFA overhead); between UltraServers, all-reduce uses EFAv3 at 3,200 Gbps per trn2 instance. For a 64-chip UltraServer with 12,800 Gbps of EFAv3, the inter-server bisection bandwidth is roughly 1.6 TB/s-about 41x lower than the aggregate intra-server NeuronLink-v3 bandwidth of 65.5 TB/s, so tensor parallelism should stay inside the UltraServer while pipeline stages cross EFA.",
+          "source": "https://aws.amazon.com/ec2/instance-types/trn2/"
+        }
+      ]
+    }
+  ]
+}

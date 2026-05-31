@@ -1,0 +1,373 @@
+{
+  "topic": "tpu-hierarchy",
+  "citations": [
+    {
+      "conceptId": "tpu-chip",
+      "tier": 2,
+      "claim": "TPU v5p BF16 TFLOPS per chip",
+      "value": "459 TFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/v5p",
+      "note": "Official Google Cloud TPU v5p documentation spec table"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 2,
+      "claim": "TPU v5p HBM capacity per chip",
+      "value": "95 GiB",
+      "source": "https://docs.cloud.google.com/tpu/docs/v5p",
+      "note": "Official Google Cloud TPU v5p documentation spec table"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 2,
+      "claim": "TPU v5p HBM bandwidth per chip",
+      "value": "2,575 GiBps",
+      "source": "https://docs.cloud.google.com/tpu/docs/v5p",
+      "note": "Official Google Cloud TPU v5p documentation spec table"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 2,
+      "claim": "TPU v5p pod chip count",
+      "value": "8,960 chips",
+      "source": "https://docs.cloud.google.com/tpu/docs/v5p",
+      "note": "Official Google Cloud TPU v5p documentation"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 2,
+      "claim": "TPU v5p ICI bandwidth per chip",
+      "value": "4,800 Gbps bidirectional",
+      "source": "https://cloud.google.com/blog/products/ai-machine-learning/introducing-cloud-tpu-v5p-and-ai-hypercomputer",
+      "note": "Google Cloud blog announcement, December 2023"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 3,
+      "claim": "TPU v4 BF16 TFLOPS per chip",
+      "value": "275 TFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/v4",
+      "note": "Official Google Cloud TPU v4 documentation"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 3,
+      "claim": "TPU v6e BF16 TFLOPS per chip",
+      "value": "918 TFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/v6e",
+      "note": "Official Google Cloud TPU v6e documentation spec table"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 3,
+      "claim": "TPU v7 Ironwood BF16 TFLOPS per chip",
+      "value": "2,307 TFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation spec table"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 3,
+      "claim": "TPU v4 HBM per chip",
+      "value": "32 GB",
+      "source": "https://docs.cloud.google.com/tpu/docs/v4",
+      "note": "Official Google Cloud TPU v4 documentation"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 3,
+      "claim": "TPU v7 HBM per chip",
+      "value": "192 GiB",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation"
+    },
+    {
+      "conceptId": "tpu-chip",
+      "tier": 3,
+      "claim": "TPU v5e roofline ridge point (arithmetic intensity)",
+      "value": "~240 FLOPs/byte",
+      "source": "https://jax-ml.github.io/scaling-book/roofline/",
+      "note": "Derived from 197 TFLOPS BF16 / 820 GB/s HBM BW; confirmed by JAX scaling book"
+    },
+    {
+      "conceptId": "tensorcore",
+      "tier": 2,
+      "claim": "TensorCores per chip: v5e and v6e",
+      "value": "1 TensorCore per chip",
+      "source": "https://docs.cloud.google.com/tpu/docs/v5e",
+      "note": "Official Google Cloud TPU v5e documentation"
+    },
+    {
+      "conceptId": "tensorcore",
+      "tier": 2,
+      "claim": "TensorCores per chip: v4, v5p, v7 Ironwood",
+      "value": "2 TensorCores per chip",
+      "source": "https://docs.cloud.google.com/tpu/docs/v5p",
+      "note": "Confirmed in official docs for v5p and v7; v4 doc states 2 TensorCores"
+    },
+    {
+      "conceptId": "tensorcore",
+      "tier": 2,
+      "claim": "Trillium (v6e) compute-per-chip gain over v5e",
+      "value": "4.7×",
+      "source": "https://docs.cloud.google.com/tpu/docs/v6e",
+      "note": "918 BF16 TFLOPS (v6e) vs 197 (v5e) ≈ 4.66×; matches Google's stated 4.7×. (MXU array dimensions are not published in the spec tables, so the corpus attributes the gain to larger MXUs + higher clock without asserting exact dimensions.)"
+    },
+    {
+      "conceptId": "tensorcore",
+      "tier": 3,
+      "claim": "v6e compute gain over v5e",
+      "value": "4.7× per chip",
+      "source": "https://cloud.google.com/blog/products/compute/introducing-trillium-6th-gen-tpus",
+      "note": "Google Cloud Trillium announcement blog post"
+    },
+    {
+      "conceptId": "tensorcore",
+      "tier": 3,
+      "claim": "SparseCores per chip on v7 Ironwood",
+      "value": "4 SparseCores",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official TPU7x documentation"
+    },
+    {
+      "conceptId": "torus",
+      "tier": 2,
+      "claim": "TPU v4 pod topology and chip count",
+      "value": "3D torus 16×16×16 = 4,096 chips",
+      "source": "https://jax-ml.github.io/scaling-book/tpus/",
+      "note": "JAX scaling book spec table; cross-verified with official v4 docs"
+    },
+    {
+      "conceptId": "torus",
+      "tier": 2,
+      "claim": "TPU v5p pod topology and chip count",
+      "value": "3D torus 16×20×28 = 8,960 chips",
+      "source": "https://jax-ml.github.io/scaling-book/tpus/",
+      "note": "JAX scaling book spec table; cross-verified with official v5p docs"
+    },
+    {
+      "conceptId": "torus",
+      "tier": 2,
+      "claim": "TPU v5e and v6e topology",
+      "value": "2D torus 16×16 = 256 chips",
+      "source": "https://jax-ml.github.io/scaling-book/tpus/",
+      "note": "JAX scaling book spec table; cross-verified with official v5e and v6e docs"
+    },
+    {
+      "conceptId": "torus",
+      "tier": 3,
+      "claim": "TPU v5p pod size and topology",
+      "value": "8,960 chips, 3D torus (16×20×28)",
+      "source": "https://docs.cloud.google.com/tpu/docs/v5p",
+      "note": "Official v5p doc + JAX scaling book topology. (Per-chip ICI rate intentionally omitted from the corpus: the v5p blog's 4,800 Gbps and the v5p doc's 1,200 GBps/chip do not reconcile under a single convention, so no per-chip ICI number is taught.)"
+    },
+    {
+      "conceptId": "torus",
+      "tier": 3,
+      "claim": "TPU v7 Ironwood ICI bandwidth per chip",
+      "value": "1,200 GBps bidirectional",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation"
+    },
+    {
+      "conceptId": "torus",
+      "tier": 3,
+      "claim": "TPU v7 Ironwood pod chip count",
+      "value": "9,216 chips",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation; topology 4×4×576"
+    },
+    {
+      "conceptId": "pod",
+      "tier": 2,
+      "claim": "All pod chip counts by generation",
+      "value": "v4=4096, v5e=256, v5p=8960, v6e=256, v7=9216",
+      "source": "https://jax-ml.github.io/scaling-book/tpus/",
+      "note": "JAX scaling book, cross-verified against each generation's official doc"
+    },
+    {
+      "conceptId": "pod",
+      "tier": 3,
+      "claim": "TPU v4 pod peak BF16 ExaFLOPS",
+      "value": "1.1 ExaFLOPS BF16",
+      "source": "https://docs.cloud.google.com/tpu/docs/v4",
+      "note": "Official TPU v4 documentation"
+    },
+    {
+      "conceptId": "pod",
+      "tier": 3,
+      "claim": "TPU v7 Ironwood pod peak FP8 ExaFLOPS",
+      "value": "~42.5 ExaFLOPS FP8",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official TPU7x documentation; derived as 4,614 TFLOPS × 9,216 chips"
+    },
+    {
+      "conceptId": "pod",
+      "tier": 3,
+      "claim": "v5p LLM training speedup over v4",
+      "value": "2.8× faster",
+      "source": "https://cloud.google.com/blog/products/ai-machine-learning/introducing-cloud-tpu-v5p-and-ai-hypercomputer",
+      "note": "Google Cloud blog, December 2023 announcement"
+    },
+    {
+      "conceptId": "pod",
+      "tier": 3,
+      "claim": "v5p pod total FLOPs vs v4 pod",
+      "value": "4× more FLOPs at pod scale",
+      "source": "https://cloud.google.com/blog/products/ai-machine-learning/introducing-cloud-tpu-v5p-and-ai-hypercomputer",
+      "note": "Google Cloud blog announcement"
+    },
+    {
+      "conceptId": "trillium",
+      "tier": 2,
+      "claim": "Trillium BF16 TFLOPS per chip",
+      "value": "918 TFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/v6e",
+      "note": "Official Google Cloud TPU v6e documentation"
+    },
+    {
+      "conceptId": "trillium",
+      "tier": 2,
+      "claim": "Trillium INT8 TOPS per chip",
+      "value": "1,836 TOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/v6e",
+      "note": "Official Google Cloud TPU v6e documentation"
+    },
+    {
+      "conceptId": "trillium",
+      "tier": 2,
+      "claim": "Trillium HBM capacity per chip",
+      "value": "32 GB",
+      "source": "https://docs.cloud.google.com/tpu/docs/v6e",
+      "note": "Official Google Cloud TPU v6e documentation"
+    },
+    {
+      "conceptId": "trillium",
+      "tier": 2,
+      "claim": "Trillium HBM bandwidth per chip",
+      "value": "1,638 GiBps",
+      "source": "https://docs.cloud.google.com/tpu/docs/v6e",
+      "note": "Official Google Cloud TPU v6e documentation"
+    },
+    {
+      "conceptId": "trillium",
+      "tier": 2,
+      "claim": "Trillium pod chip count",
+      "value": "256 chips",
+      "source": "https://docs.cloud.google.com/tpu/docs/v6e",
+      "note": "Official Google Cloud TPU v6e documentation"
+    },
+    {
+      "conceptId": "trillium",
+      "tier": 3,
+      "claim": "Trillium pod BF16 PetaFLOPS",
+      "value": "234.9 PetaFLOPS BF16",
+      "source": "https://docs.cloud.google.com/tpu/docs/v6e",
+      "note": "Official Google Cloud TPU v6e documentation"
+    },
+    {
+      "conceptId": "trillium",
+      "tier": 3,
+      "claim": "Trillium energy efficiency vs v5e",
+      "value": "over 67% more efficient",
+      "source": "https://cloud.google.com/blog/products/compute/introducing-trillium-6th-gen-tpus",
+      "note": "Google Cloud Trillium announcement blog"
+    },
+    {
+      "conceptId": "trillium",
+      "tier": 3,
+      "claim": "v5e pod BF16 PetaFLOPS (for comparison)",
+      "value": "50.63 PetaFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/v5e",
+      "note": "Official Google Cloud TPU v5e documentation"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 2,
+      "claim": "Ironwood BF16 TFLOPS per chip",
+      "value": "2,307 TFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 2,
+      "claim": "Ironwood FP8 TFLOPS per chip",
+      "value": "4,614 TFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 2,
+      "claim": "Ironwood HBM per chip",
+      "value": "192 GiB HBM3e",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 2,
+      "claim": "Ironwood HBM bandwidth per chip",
+      "value": "7,380 GiBps",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 2,
+      "claim": "Ironwood ICI bandwidth per chip",
+      "value": "1,200 GBps bidirectional",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 2,
+      "claim": "Ironwood pod chip count",
+      "value": "9,216 chips",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official Google Cloud TPU7x documentation"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 2,
+      "claim": "Ironwood pod total HBM",
+      "value": "1.77 PB",
+      "source": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+      "note": "Google Cloud blog post on Ironwood codesigned AI stack"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 2,
+      "claim": "Ironwood pod FP8 ExaFLOPS",
+      "value": "~42.5 ExaFLOPS",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Official TPU7x docs; 4,614 TFLOPS × 9,216 chips ≈ 42.5 ExaFLOPS"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 3,
+      "claim": "Ironwood vs v5p compute ratio",
+      "value": "~5× per chip (2,307 vs 459 BF16 TFLOPS); ~10× pod/system-level",
+      "source": "https://cloud.google.com/blog/products/compute/ironwood-tpus-and-new-axion-based-vms-for-your-ai-workloads",
+      "note": "Per-chip ratio re-derived (2,307/459 = 5.03×); Google's headline ~10× is a pod/system-level figure"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 3,
+      "claim": "Ironwood vs Trillium compute ratio",
+      "value": "~4× per chip",
+      "source": "https://cloud.google.com/blog/products/compute/ironwood-tpus-and-new-axion-based-vms-for-your-ai-workloads",
+      "note": "Google Cloud Ironwood announcement blog; also derivable from 2307/918 ≈ 2.5×, so 4× likely includes memory/ICI improvements"
+    },
+    {
+      "conceptId": "ironwood",
+      "tier": 3,
+      "claim": "Ironwood roofline ridge point (arithmetic intensity)",
+      "value": "~313 FLOPs/byte",
+      "source": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+      "note": "Derived: 2,307 TFLOPS ÷ 7,380 GB/s ≈ 313 FLOPs/byte. Not stated explicitly in docs; computed from official chip specs."
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "topic": "roofline-math",
+  "title": "Roofline & performance modeling",
+  "concepts": [
+    {
+      "id": "roofline-model",
+      "token": "roofline",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "roofline"
+        },
+        {
+          "tier": 1,
+          "text": "a visual performance model that bounds attainable floating-point throughput by the lesser of two hardware limits: peak compute and peak memory bandwidth scaled by arithmetic intensity",
+          "source": "https://dl.acm.org/doi/abs/10.1145/1498765.1498785"
+        },
+        {
+          "tier": 2,
+          "text": "attainable performance P = min(pi, beta x I), where pi is peak FLOP/s, beta is peak memory bandwidth in bytes/s, and I is arithmetic intensity in FLOP/byte",
+          "source": "https://en.wikipedia.org/wiki/Roofline_model"
+        },
+        {
+          "tier": 3,
+          "text": "On an A100 GPU with pi = 312 TFLOP/s (FP16) and beta = 2 TB/s, a DGEMM kernel with I = 10 FLOP/byte achieves at most min(312, 2x10) = 20 TFLOP/s - only 6% of peak - because it is starved of data. Doubling arithmetic intensity to 20 FLOP/byte doubles attainable throughput to 40 TFLOP/s, a pure bandwidth gain; no compute hardware is wasted. The model shows that optimizing a memory-bound kernel requires reducing data movement, not adding compute.",
+          "source": "https://dl.acm.org/doi/abs/10.1145/1498765.1498785"
+        }
+      ]
+    },
+    {
+      "id": "arithmetic-intensity",
+      "token": "intensity",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "intensity"
+        },
+        {
+          "tier": 1,
+          "text": "arithmetic intensity (also called operational intensity) is the ratio of floating-point operations performed to bytes of data transferred between the processor and off-chip DRAM, measured in FLOP/byte",
+          "source": "https://dl.acm.org/doi/abs/10.1145/1498765.1498785"
+        },
+        {
+          "tier": 2,
+          "text": "I = (total FLOPs executed) / (total bytes transferred from DRAM), where the byte count is DRAM traffic, not register-file or cache traffic",
+          "source": "https://dl.acm.org/doi/abs/10.1145/1498765.1498785"
+        },
+        {
+          "tier": 3,
+          "text": "A dense matrix-matrix multiply (DGEMM) on an NxN matrix performs 2N^3 FLOPs while reading 3N^2 matrices of 8 bytes each, giving I ~ 2N^3 / (24N^2) = N/12 FLOP/byte - intensity grows with N, explaining why large batches are more compute-efficient. By contrast, a vector addition reads 2N elements and writes 1N while doing N additions: I = N ops / (3N x 8 bytes) ~ 0.04 FLOP/byte, deeply memory-bound at any scale. Arithmetic intensity thus measures how well a kernel reuses the data it fetches.",
+          "source": "https://dl.acm.org/doi/abs/10.1145/1498765.1498785"
+        }
+      ]
+    },
+    {
+      "id": "ridge-point",
+      "token": "bound",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "bound"
+        },
+        {
+          "tier": 1,
+          "text": "a kernel is memory-bound when its arithmetic intensity I is below the ridge point, and compute-bound when I is above it; the ridge point is where the memory-bandwidth roof meets the peak-compute roof",
+          "source": "https://en.wikipedia.org/wiki/Roofline_model"
+        },
+        {
+          "tier": 2,
+          "text": "ridge point intensity I_ridge = pi / beta (peak FLOP/s divided by peak bandwidth in bytes/s); if I < I_ridge the kernel is memory-bound and P = beta x I; if I >= I_ridge it is compute-bound and P = pi",
+          "source": "https://en.wikipedia.org/wiki/Roofline_model"
+        },
+        {
+          "tier": 3,
+          "text": "On an A100 (pi = 312 TFLOP/s FP16, beta = 2 TB/s), the ridge point is 312 / 2 = 156 FLOP/byte. A transformer attention kernel at I ~ 20 FLOP/byte sits far to the left of the ridge and runs at roughly 40 TFLOP/s - 13% of peak - meaning 87% of compute hardware idles. A fused kernel that tiles the attention computation into cache can raise effective I toward 156, the point where compute and memory limits are simultaneously saturated. The ridge point therefore quantifies how much compute-reuse a programmer must engineer before memory is no longer the bottleneck.",
+          "source": "https://en.wikipedia.org/wiki/Roofline_model"
+        }
+      ]
+    },
+    {
+      "id": "littles-law",
+      "token": "concurrency",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "concurrency"
+        },
+        {
+          "tier": 1,
+          "text": "Little's Law: in any stable system the mean number of items in the system (concurrency) equals the mean arrival rate (throughput) multiplied by the mean time each item spends in the system (latency)",
+          "source": "https://en.wikipedia.org/wiki/Little%27s_law"
+        },
+        {
+          "tier": 2,
+          "text": "L = lambda x W, equivalently: concurrency (ops) = throughput (ops/s) x latency (s); proven by John D.C. Little (Operations Research, 1961) and valid for any stable FIFO or non-FIFO queue regardless of arrival distribution",
+          "source": "https://en.wikipedia.org/wiki/Little%27s_law"
+        },
+        {
+          "tier": 3,
+          "text": "A GPU memory subsystem with throughput lambda = 2 TB/s and per-access latency W = 400 ns = 4x10^-7 s requires L = 2x10^12 x 4x10^-7 = 800,000 bytes simultaneously in flight to keep bandwidth fully utilized. Expressed in cache lines (64 bytes each), that is 12,500 outstanding requests - far more than a single warp can generate. This is why modern GPUs run hundreds of concurrent warps: each issues memory requests independently, collectively supplying the in-flight concurrency that Little's Law demands to saturate bandwidth.",
+          "source": "https://modal.com/gpu-glossary/perf/littles-law"
+        }
+      ]
+    },
+    {
+      "id": "latency-throughput-tradeoff",
+      "token": "throughput",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "throughput"
+        },
+        {
+          "tier": 1,
+          "text": "throughput (ops/s or tokens/s) and latency (time per op) are linked by Little's Law; batching raises throughput by amortizing fixed overhead across many requests, at the cost of increased latency for each individual request",
+          "source": "https://modal.com/gpu-glossary/perf/littles-law"
+        },
+        {
+          "tier": 2,
+          "text": "throughput = concurrency / latency; increasing batch size B increases arithmetic intensity proportionally (more FLOPs reuse the same weights), which raises throughput toward peak FLOP/s, while end-to-end latency grows roughly as B x (latency per sample)",
+          "source": "https://modal.com/gpu-glossary/perf/littles-law"
+        },
+        {
+          "tier": 3,
+          "text": "For an LLM inference server serving a single request at batch size 1: the model weights must be streamed from HBM each forward pass, making the kernel memory-bound (I ~ 1 FLOP/byte for matrix-vector multiply). At batch size 32 the same weights serve 32 tokens per load, multiplying I by 32 and moving the kernel toward or past the ridge point, which can raise GPU utilization from ~5% to near-peak. The throughput gain is real: 32x more tokens generated per second. The latency cost is also real: the 32nd user in the batch waits for 31 others' requests to accumulate before processing begins.",
+          "source": "https://modal.com/gpu-glossary/perf/littles-law"
+        }
+      ]
+    },
+    {
+      "id": "allreduce-cost",
+      "token": "bandwidth",
+      "depth": [
+        {
+          "tier": 0,
+          "text": "bandwidth"
+        },
+        {
+          "tier": 1,
+          "text": "a ring all-reduce over N nodes is bandwidth-optimal: each node sends and receives exactly 2x(N-1)/N x S bytes total, where S is the message size, because it fuses a reduce-scatter and an all-gather each requiring (N-1)/N x S bytes per node",
+          "source": "https://tech.preferred.jp/en/blog/technologies-behind-distributed-deep-learning-allreduce/"
+        },
+        {
+          "tier": 2,
+          "text": "all-reduce time ~ 2 x (N-1)/N x S / B_link, where N is the number of nodes, S is the total gradient tensor size in bytes, and B_link is the per-link bandwidth; as N->inf the factor 2(N-1)/N approaches 2, so communication cost saturates at 2S/B_link and does not grow with N",
+          "source": "https://tech.preferred.jp/en/blog/technologies-behind-distributed-deep-learning-allreduce/"
+        },
+        {
+          "tier": 3,
+          "text": "With N = 8 GPUs and S = 1 GB of gradients per step over a 200 GB/s NVLink ring, each GPU sends and receives 2x7/8 x 1 GB = 1.75 GB. At 200 GB/s that takes 1.75 / 200 ~ 8.75 ms. Scaling to N = 64 GPUs: 2x63/64 x 1 GB ~ 1.97 GB per GPU, still ~ 9.8 ms - only 12% more time despite 8x more GPUs. This near-constant scaling is why ring all-reduce is the backbone of data-parallel training: adding replicas improves throughput (more samples/step) without proportionally increasing the communication overhead that would otherwise dominate.",
+          "source": "https://tech.preferred.jp/en/blog/technologies-behind-distributed-deep-learning-allreduce/"
+        }
+      ]
+    }
+  ]
+}

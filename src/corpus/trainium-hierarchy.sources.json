@@ -1,0 +1,245 @@
+{
+  "topic": "trainium-hierarchy",
+  "citations": [
+    {
+      "conceptId": "neuroncore",
+      "tier": 2,
+      "claim": "Each NeuronCore-v3 contains 28 MB of on-chip SRAM",
+      "value": "28 MB",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/neuron-core-v3.html",
+      "note": "Architecture page states '28MB of on-chip SRAM' under NeuronCore-v3 memory section"
+    },
+    {
+      "conceptId": "neuroncore",
+      "tier": 2,
+      "claim": "NeuronCore-v3 Tensor Engine delivers 158 cFP8 TFLOPS per core",
+      "value": "158 cFP8 TFLOPS",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/neuron-core-v3.html",
+      "note": "NeuronCore-v3 architecture page: 'Tensor Engine: 158 cFP8 TFLOPS'"
+    },
+    {
+      "conceptId": "neuroncore",
+      "tier": 2,
+      "claim": "NeuronCore-v3 Tensor Engine delivers 79 BF16 TFLOPS per core",
+      "value": "79 BF16 TFLOPS",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/neuron-core-v3.html",
+      "note": "NeuronCore-v3 architecture page: 'Tensor Engine: 79 BF16/FP16/TF32 TFLOPS'"
+    },
+    {
+      "conceptId": "neuroncore",
+      "tier": 3,
+      "claim": "Trainium1 chip had 2 NeuronCore-v2 cores at 190 BF16 TFLOPS total per chip",
+      "value": "190 BF16 TFLOPS per Trainium1 chip",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/v2.9.1/general/arch/neuron-hardware/trainium.html",
+      "note": "Trainium (Trn1) architecture page: '2x NeuronCore-v2 cores' and '190 FP16/BF16/cFP8/TF32 TFLOPS' per device"
+    },
+    {
+      "conceptId": "trainium2-chip",
+      "tier": 2,
+      "claim": "Trainium2 chip has 8 NeuronCore-v3 cores",
+      "value": "8 NeuronCore-v3",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trainium2.html",
+      "note": "Trainium2 architecture page: 'Eight NeuronCore-v3' per chip"
+    },
+    {
+      "conceptId": "trainium2-chip",
+      "tier": 2,
+      "claim": "Trainium2 chip has 96 GiB HBM",
+      "value": "96 GiB",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trainium2.html",
+      "note": "Trainium2 architecture page: '96 GiB of device memory'"
+    },
+    {
+      "conceptId": "trainium2-chip",
+      "tier": 2,
+      "claim": "Trainium2 chip HBM bandwidth is 2.9 TB/s",
+      "value": "2.9 TB/s",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trainium2.html",
+      "note": "Trainium2 architecture page: '2.9 TB/sec' HBM bandwidth per chip"
+    },
+    {
+      "conceptId": "trainium2-chip",
+      "tier": 2,
+      "claim": "Trainium2 chip dense FP8 compute is 1,299 TFLOPS",
+      "value": "1,299 FP8 TFLOPS",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trainium2.html",
+      "note": "Trainium2 architecture page: '1,299 FP8 TFLOPS'"
+    },
+    {
+      "conceptId": "trainium2-chip",
+      "tier": 2,
+      "claim": "Trainium2 chip dense BF16 compute is 667 TFLOPS",
+      "value": "667 BF16 TFLOPS",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trainium2.html",
+      "note": "Trainium2 architecture page: '667 BF16/FP16/TF32 TFLOPS'"
+    },
+    {
+      "conceptId": "trainium2-chip",
+      "tier": 3,
+      "claim": "Trainium1 chip has 32 GB HBM",
+      "value": "32 GB",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/v2.9.1/general/arch/neuron-hardware/trainium.html",
+      "note": "Trainium architecture page: '32GB of device memory'"
+    },
+    {
+      "conceptId": "trainium2-chip",
+      "tier": 3,
+      "claim": "Trainium1 chip HBM bandwidth is 820 GB/s",
+      "value": "820 GB/s",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/v2.9.1/general/arch/neuron-hardware/trainium.html",
+      "note": "Trainium architecture page: '820 GB/sec' HBM bandwidth"
+    },
+    {
+      "conceptId": "neuronlink",
+      "tier": 2,
+      "claim": "NeuronLink-v3 intra-instance bandwidth is 1,024 GB/s per chip",
+      "value": "1,024 GB/s per chip (intra-instance)",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: 'Intra-instance NeuronLink-v3: 1,024 GB/sec/chip'"
+    },
+    {
+      "conceptId": "neuronlink",
+      "tier": 2,
+      "claim": "NeuronLink-v3 inter-instance (UltraServer) bandwidth is 256 GB/s per chip",
+      "value": "256 GB/s per chip (inter-instance)",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: 'Inter-instance NeuronLink-v3: 256 GB/sec/chip'"
+    },
+    {
+      "conceptId": "neuronlink",
+      "tier": 3,
+      "claim": "NeuronLink-v2 (Trainium1) bandwidth was 384 GB/s per chip",
+      "value": "384 GB/s per chip",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trainium2.html",
+      "note": "Trainium2 architecture page lists NeuronLink-v2 as '384 GB/sec per chip' in the gen-over-gen comparison table"
+    },
+    {
+      "conceptId": "trn2-instance",
+      "tier": 2,
+      "claim": "Trn2.48xlarge has 16 Trainium2 chips",
+      "value": "16 chips",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '16 Trainium2 chips' for trn2.48xlarge"
+    },
+    {
+      "conceptId": "trn2-instance",
+      "tier": 2,
+      "claim": "Trn2.48xlarge total HBM is 1,536 GiB",
+      "value": "1,536 GiB",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '1,536 GiB device memory'"
+    },
+    {
+      "conceptId": "trn2-instance",
+      "tier": 2,
+      "claim": "Trn2.48xlarge HBM bandwidth is 46.4 TB/s",
+      "value": "46.4 TB/s",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '46.4 TB/sec' HBM bandwidth"
+    },
+    {
+      "conceptId": "trn2-instance",
+      "tier": 2,
+      "claim": "Trn2.48xlarge delivers 20.8 FP8 PFLOPS",
+      "value": "20.8 FP8 PFLOPS",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '20.8 PFLOPS' FP8 dense"
+    },
+    {
+      "conceptId": "trn2-instance",
+      "tier": 2,
+      "claim": "Trn2.48xlarge delivers 10.7 BF16 PFLOPS",
+      "value": "10.7 BF16 PFLOPS",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '10.7 PFLOPS' BF16 dense"
+    },
+    {
+      "conceptId": "trn2-instance",
+      "tier": 2,
+      "claim": "Trn2.48xlarge has 3,200 Gbps of EFAv3 networking",
+      "value": "3,200 Gbps",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '3,200 Gbps EFAv3'"
+    },
+    {
+      "conceptId": "trn2-instance",
+      "tier": 3,
+      "claim": "Trn1.32xlarge had 512 GB HBM total",
+      "value": "512 GB HBM",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/arch/neuron-hardware/trn1-arch.html",
+      "note": "Trn1 architecture page: '512 GB of shared accelerator memory (HBM)'"
+    },
+    {
+      "conceptId": "trn2-instance",
+      "tier": 3,
+      "claim": "Trn1.32xlarge had 9.8 TB/s HBM bandwidth total",
+      "value": "9.8 TB/s",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/arch/neuron-hardware/trn1-arch.html",
+      "note": "Trn1 architecture page: '9.8 TB/s of total memory bandwidth'"
+    },
+    {
+      "conceptId": "ultraserver",
+      "tier": 2,
+      "claim": "Trn2 UltraServer has 64 Trainium2 chips",
+      "value": "64 chips",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture page: 'A Trn2 UltraServer comprises four trn2u.48xlarge instances' with 16 chips each = 64 total"
+    },
+    {
+      "conceptId": "ultraserver",
+      "tier": 2,
+      "claim": "Trn2 UltraServer delivers 83.2 FP8 PFLOPS",
+      "value": "83.2 FP8 PFLOPS",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '83.2 PFLOPS' FP8 dense for UltraServer"
+    },
+    {
+      "conceptId": "ultraserver",
+      "tier": 2,
+      "claim": "Trn2 UltraServer delivers 42.8 BF16 PFLOPS",
+      "value": "42.8 BF16 PFLOPS",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '42.8 PFLOPS' BF16 dense for UltraServer"
+    },
+    {
+      "conceptId": "ultraserver",
+      "tier": 2,
+      "claim": "Trn2 UltraServer has 6,144 GiB of total HBM",
+      "value": "6,144 GiB",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '6,144 GiB device memory' for UltraServer"
+    },
+    {
+      "conceptId": "ultraserver",
+      "tier": 2,
+      "claim": "Trn2 UltraServer has 185.6 TB/s of aggregate HBM bandwidth",
+      "value": "185.6 TB/s",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Trn2 architecture spec table: '185.6 TB/sec' HBM bandwidth for UltraServer"
+    },
+    {
+      "conceptId": "ultraserver",
+      "tier": 3,
+      "claim": "Roofline arithmetic intensity knee for Trn2 UltraServer ≈ 448 FLOPS/byte",
+      "value": "~448 FLOPS/byte",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Derived: 83,200 TFLOPS / 185.6 TB/s = ~448 FLOPS/byte. Both inputs from Trn2 architecture spec table."
+    },
+    {
+      "conceptId": "ultracluster",
+      "tier": 2,
+      "claim": "Trn2 UltraServer has 12,800 Gbps of EFAv3 networking",
+      "value": "12,800 Gbps",
+      "source": "https://aws.amazon.com/ec2/instance-types/trn2/",
+      "note": "AWS Trn2 instance page: UltraServer has '12.8 Tbps of EFAv3 networking' (4x the per-instance 3.2 Tbps)"
+    },
+    {
+      "conceptId": "ultracluster",
+      "tier": 3,
+      "claim": "Aggregate intra-UltraServer NeuronLink-v3 bandwidth is ~65.5 TB/s (64 chips x 1,024 GB/s)",
+      "value": "~65.5 TB/s aggregate intra-server",
+      "source": "https://awsdocs-neuron.readthedocs-hosted.com/en/latest/about-neuron/arch/neuron-hardware/trn2-arch.html",
+      "note": "Derived: 64 chips x 1,024 GB/s/chip intra-instance NeuronLink-v3. Note: inter-instance links within UltraServer run at 256 GB/s/chip; the 1,024 figure applies to intra-instance chip pairs."
+    }
+  ]
+}
