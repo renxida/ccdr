@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+/*
+ * ccdr — spartan typing trainer design tokens.
+ * Dark, high-legibility, distraction-free. Refined via the M5 visual loop.
+ */
+@theme {
+  --color-bg: #0d0e11;
+  --color-surface: #15171c;
+  --color-border: #24272e;
+  --color-text: #e4e4e7;
+  --color-dim: #71757e;
+  --color-faint: #3a3d45;
+  --color-accent: #6ee7b7; /* mint — cursor / active */
+  --color-correct: #4ade80;
+  --color-error: #f87171;
+  --color-error-bg: rgba(248, 113, 113, 0.14);
+
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-sans: ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Kill the default focus ring noise; we manage focus affordances explicitly. */
+:focus:not(:focus-visible) {
+  outline: none;
+}

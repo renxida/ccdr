@@ -1,0 +1,184 @@
+{
+  "a": {
+    "hand": "right",
+    "finger": "index",
+    "thumbIndex": null,
+    "direction": "west",
+    "label": "a"
+  },
+  "b": {
+    "hand": "right",
+    "finger": "thumb",
+    "thumbIndex": 1,
+    "direction": "west",
+    "label": "b"
+  },
+  "c": {
+    "hand": "left",
+    "finger": "thumb",
+    "thumbIndex": 0,
+    "direction": "south",
+    "label": "c"
+  },
+  "d": {
+    "hand": "right",
+    "finger": "thumb",
+    "thumbIndex": 0,
+    "direction": "south",
+    "label": "d"
+  },
+  "e": {
+    "hand": "left",
+    "finger": "index",
+    "thumbIndex": null,
+    "direction": "south",
+    "label": "e"
+  },
+  "f": {
+    "hand": "right",
+    "finger": "thumb",
+    "thumbIndex": 0,
+    "direction": "west",
+    "label": "f"
+  },
+  "g": {
+    "hand": "left",
+    "finger": "thumb",
+    "thumbIndex": 1,
+    "direction": "west",
+    "label": "g"
+  },
+  "h": {
+    "hand": "right",
+    "finger": "thumb",
+    "thumbIndex": 0,
+    "direction": "east",
+    "label": "h"
+  },
+  "i": {
+    "hand": "left",
+    "finger": "middle",
+    "thumbIndex": null,
+    "direction": "east",
+    "label": "i"
+  },
+  "j": {
+    "hand": "right",
+    "finger": "middle",
+    "thumbIndex": null,
+    "direction": "east",
+    "label": "j"
+  },
+  "k": {
+    "hand": "left",
+    "finger": "thumb",
+    "thumbIndex": 0,
+    "direction": "east",
+    "label": "k"
+  },
+  "l": {
+    "hand": "right",
+    "finger": "middle",
+    "thumbIndex": null,
+    "direction": "west",
+    "label": "l"
+  },
+  "m": {
+    "hand": "left",
+    "finger": "thumb",
+    "thumbIndex": 0,
+    "direction": "west",
+    "label": "m"
+  },
+  "n": {
+    "hand": "right",
+    "finger": "middle",
+    "thumbIndex": null,
+    "direction": "south",
+    "label": "n"
+  },
+  "o": {
+    "hand": "left",
+    "finger": "middle",
+    "thumbIndex": null,
+    "direction": "south",
+    "label": "o"
+  },
+  "p": {
+    "hand": "right",
+    "finger": "thumb",
+    "thumbIndex": 0,
+    "direction": "north",
+    "label": "p"
+  },
+  "q": {
+    "hand": "right",
+    "finger": "thumb",
+    "thumbIndex": 1,
+    "direction": "south",
+    "label": "q"
+  },
+  "r": {
+    "hand": "left",
+    "finger": "index",
+    "thumbIndex": null,
+    "direction": "east",
+    "label": "r"
+  },
+  "s": {
+    "hand": "right",
+    "finger": "ring",
+    "thumbIndex": null,
+    "direction": "south",
+    "label": "s"
+  },
+  "t": {
+    "hand": "right",
+    "finger": "index",
+    "thumbIndex": null,
+    "direction": "south",
+    "label": "t"
+  },
+  "u": {
+    "hand": "left",
+    "finger": "ring",
+    "thumbIndex": null,
+    "direction": "south",
+    "label": "u"
+  },
+  "v": {
+    "hand": "left",
+    "finger": "thumb",
+    "thumbIndex": 0,
+    "direction": "north",
+    "label": "v"
+  },
+  "w": {
+    "hand": "left",
+    "finger": "thumb",
+    "thumbIndex": 1,
+    "direction": "east",
+    "label": "w"
+  },
+  "x": {
+    "hand": "right",
+    "finger": "thumb",
+    "thumbIndex": 1,
+    "direction": "north",
+    "label": "x"
+  },
+  "y": {
+    "hand": "right",
+    "finger": "ring",
+    "thumbIndex": null,
+    "direction": "west",
+    "label": "y"
+  },
+  "z": {
+    "hand": "left",
+    "finger": "thumb",
+    "thumbIndex": 1,
+    "direction": "south",
+    "label": "z"
+  }
+}
