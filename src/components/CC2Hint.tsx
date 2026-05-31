@@ -81,17 +81,22 @@ export interface CC2HintProps {
   targetChar: string
   /** Per-char stats; drives the proficiency fade. */
   stats?: CharStats
+  /** Render only one half (used by the focus layout); default renders both. */
+  only?: Hand
   className?: string
 }
 
-export function CC2Hint({ targetChar, stats, className }: CC2HintProps) {
+export function CC2Hint({ targetChar, stats, only, className }: CC2HintProps) {
   const target = mappingFor(targetChar)
   const intensity = useMemo(
     () => (target ? hintIntensity(stats?.[target.label]) : 0),
     [target, stats],
   )
 
-  const totalW = HALF_W * 2 + GAP
+  const switches = only ? SWITCHES.filter((s) => s.id.hand === only) : SWITCHES
+  const xOf = (hand: Hand, localX: number) =>
+    only ? (only === 'left' ? localX : HALF_W - localX) : halfX(hand, localX)
+  const totalW = only ? HALF_W : HALF_W * 2 + GAP
   return (
     <svg
       role="img"
@@ -109,9 +114,9 @@ export function CC2Hint({ targetChar, stats, className }: CC2HintProps) {
       className={className}
       width="100%"
     >
-      {SWITCHES.map(({ id, chars }) => {
+      {switches.map(({ id, chars }) => {
         const c = switchCenter(id.finger, id.thumbIndex)
-        const cx = halfX(id.hand, c.x)
+        const cx = xOf(id.hand, c.x)
         const cy = c.y
         const isTargetSwitch =
           !!target &&
@@ -173,12 +178,19 @@ export function CC2Hint({ targetChar, stats, className }: CC2HintProps) {
         )
       })}
       {/* hand labels */}
-      <text x={HALF_W / 2} y={HALF_H - 4} textAnchor="middle" fontFamily="var(--font-sans)" fontSize="10" fill="var(--color-faint)">
-        left
-      </text>
-      <text x={HALF_W + GAP + HALF_W / 2} y={HALF_H - 4} textAnchor="middle" fontFamily="var(--font-sans)" fontSize="10" fill="var(--color-faint)">
-        right
-      </text>
+      {(only ? [only] : (['left', 'right'] as Hand[])).map((hand) => (
+        <text
+          key={hand}
+          x={only ? HALF_W / 2 : halfX(hand, HALF_W / 2)}
+          y={HALF_H - 4}
+          textAnchor="middle"
+          fontFamily="var(--font-sans)"
+          fontSize="10"
+          fill="var(--color-faint)"
+        >
+          {hand}
+        </text>
+      ))}
     </svg>
   )
 }
