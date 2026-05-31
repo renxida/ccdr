@@ -3,9 +3,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// Custom domain (ccdr.dev) serves from root → base '/'.
+// Relative base works both at the interim project URL (renresear.ch/ccdr/) and at
+// the final apex (ccdr.dev/) — no base swap needed when DNS is wired up.
 export default defineConfig({
-  base: '/',
+  base: './',
   plugins: [react(), tailwindcss()],
   test: {
     environment: 'jsdom',
