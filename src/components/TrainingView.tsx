@@ -12,9 +12,10 @@ import { Split } from './layouts/Split'
 const LAYOUTS = { a: Stack, b: Focus, c: Split } as const
 type VariantKey = keyof typeof LAYOUTS
 
+// Default 'b' (Focus) — chosen by the owner. Override per-session with ?variant=a|c.
 function activeVariant(): VariantKey {
   const v = new URLSearchParams(window.location.search).get('variant')
-  return v && v in LAYOUTS ? (v as VariantKey) : 'a'
+  return v && v in LAYOUTS ? (v as VariantKey) : 'b'
 }
 
 export function TrainingView() {
