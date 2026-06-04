@@ -27,17 +27,18 @@ export function Stack({ view, resetProgress }: LayoutProps) {
         </div>
       </header>
 
-      <main className="flex flex-1 flex-col items-center justify-center gap-10 px-6">
+      <main className="flex flex-1 flex-col items-center justify-center gap-6 overflow-y-auto px-6 py-4">
         <div className="flex items-end gap-10 font-mono">
           <Metric value={String(Math.round(view.liveWPM))} label="wpm" sub={`/ ${view.targetWPM}`} testid="wpm" />
           <Metric value={`${Math.round(view.liveAccuracy * 100)}%`} label="accuracy" testid="accuracy" />
           <Streak n={view.consecutivePasses} />
         </div>
-        <div className="w-full max-w-2xl rounded-xl border border-border bg-surface px-8 py-7">
+        <div className="w-full max-w-2xl rounded-xl border border-border bg-surface px-8 py-6">
           <DrillText text={view.targetText} charStates={view.charStates} />
         </div>
         <LastOutcome view={view} />
-        <div className="w-full max-w-2xl">
+        {/* hint shrinks at deeper tiers so long drills + hint both stay on screen */}
+        <div className={`w-full shrink-0 ${view.tier >= 3 ? 'max-w-md' : view.tier === 2 ? 'max-w-lg' : 'max-w-2xl'}`}>
           <CC2Hint targetChar={view.currentChar} stats={view.charStats} />
         </div>
       </main>

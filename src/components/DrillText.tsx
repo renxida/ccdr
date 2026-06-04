@@ -8,11 +8,19 @@ const CLASS: Record<CharState, string> = {
   error: 'text-error bg-error-bg rounded-[3px]',
 }
 
+/** Font scales down as drills get longer so text + hint always fit on screen. */
+function sizeFor(len: number): string {
+  if (len > 320) return 'text-base leading-[1.8]' // long paragraph
+  if (len > 180) return 'text-lg leading-[1.8]' // paragraph
+  if (len > 80) return 'text-2xl leading-[1.7]' // sentence
+  return 'text-[1.75rem] leading-[1.7]' // token / phrase
+}
+
 export function DrillText({ text, charStates }: { text: string; charStates: CharState[] }) {
   return (
     <p
       data-testid="drill-text"
-      className="font-mono text-2xl leading-[1.7] tracking-tight whitespace-pre-wrap break-words"
+      className={`font-mono tracking-tight whitespace-pre-wrap break-words ${sizeFor(text.length)}`}
     >
       {[...text].map((ch, i) => (
         <span key={i} className={CLASS[charStates[i] ?? 'upcoming']}>

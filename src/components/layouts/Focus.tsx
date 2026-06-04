@@ -19,11 +19,11 @@ export function Focus({ view, resetProgress }: LayoutProps) {
         />
       </div>
 
-      <header className="flex items-center justify-between px-6 py-4 font-mono text-xs text-dim">
-        <span data-testid="tier-badge">
+      <header className="flex items-center justify-between gap-3 px-6 py-4 font-mono text-xs text-dim">
+        <span data-testid="tier-badge" className="min-w-0 truncate">
           <span className="text-faint">{view.conceptId}</span> · T{view.tier} {TIER_LABEL[view.tier]}
         </span>
-        <span className="tabular-nums">
+        <span className="shrink-0 tabular-nums">
           <span className="text-text" data-testid="wpm">
             {Math.round(view.liveWPM)}
           </span>
@@ -34,11 +34,11 @@ export function Focus({ view, resetProgress }: LayoutProps) {
         </span>
       </header>
 
-      <main className="flex flex-1 flex-col items-center justify-center gap-14 px-6">
-        <div className="w-full max-w-3xl text-center text-[2rem] leading-relaxed">
+      <main className="flex flex-1 flex-col items-center justify-center gap-8 overflow-y-auto px-6 py-4">
+        <div className="w-full max-w-3xl text-center">
           <DrillText text={view.targetText} charStates={view.charStates} />
         </div>
-        <div className="w-full max-w-xs opacity-90">
+        <div className="w-full max-w-[14rem] shrink-0 opacity-90">
           <CC2Hint targetChar={view.currentChar} stats={view.charStats} only={hand} />
         </div>
       </main>
