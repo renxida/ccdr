@@ -2,7 +2,8 @@
  *  the middle, CC2 hint below. Balanced and calm. */
 import { DrillText } from '../DrillText'
 import { CC2Hint } from '../CC2Hint'
-import { Footer, LastOutcome, TIER_LABEL, type LayoutProps } from './shared'
+import { Footer, LastOutcome } from './shared'
+import { TIER_LABEL, type LayoutProps } from './common'
 
 export function Stack({ view, resetProgress }: LayoutProps) {
   return (

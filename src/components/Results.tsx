@@ -1,7 +1,7 @@
 /** Session summary overlay (SPEC §7 results state). Calm, data-only. */
 import { useEffect } from 'react'
 import { computeAccuracy, computeWPM } from '../engine/metrics'
-import { problemChars, type SessionAgg } from '../hooks/useTrainer'
+import { problemChars, type SessionAgg } from '../hooks/sessionStats'
 import type { CharStats } from '../engine/types'
 
 export function Results({

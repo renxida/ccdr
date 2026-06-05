@@ -3,7 +3,8 @@
  *  type. Stacks on mobile. Best for actively learning switch locations. */
 import { DrillText } from '../DrillText'
 import { CC2Hint } from '../CC2Hint'
-import { Footer, LastOutcome, TIER_LABEL, type LayoutProps } from './shared'
+import { Footer, LastOutcome } from './shared'
+import { TIER_LABEL, type LayoutProps } from './common'
 
 export function Split({ view, resetProgress }: LayoutProps) {
   return (

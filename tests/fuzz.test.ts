@@ -12,7 +12,7 @@ import {
   updateCharStat,
   weaknessWeight,
 } from '../src/engine/charStats'
-import { DrillSession, buildResult, deriveSamples, ingestResult } from '../src/engine/drill'
+import { DrillSession, deriveSamples, ingestResult } from '../src/engine/drill'
 import { scoreText, selectDrill, weightedPick } from '../src/engine/selection'
 import {
   conceptProgress,

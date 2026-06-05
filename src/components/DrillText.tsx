@@ -1,5 +1,5 @@
 /** The drill text — per-character states drive the keybr-style coloring. */
-import type { CharState } from '../hooks/useTrainer'
+import type { CharState } from '../hooks/trainerTypes'
 
 const CLASS: Record<CharState, string> = {
   correct: 'text-dim',

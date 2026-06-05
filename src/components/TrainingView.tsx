@@ -3,7 +3,8 @@
  *  `?variant=a|b|c` query param (default a). Overlays the tier-up banner and the
  *  results summary above whichever layout is active. */
 import { useEffect, useState } from 'react'
-import { useTrainer, type SessionAgg } from '../hooks/useTrainer'
+import { useTrainer } from '../hooks/useTrainer'
+import type { SessionAgg } from '../hooks/sessionStats'
 import { Results } from './Results'
 import { Stack } from './layouts/Stack'
 import { Focus } from './layouts/Focus'

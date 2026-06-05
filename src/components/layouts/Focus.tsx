@@ -4,7 +4,8 @@
 import { DrillText } from '../DrillText'
 import { CC2Hint } from '../CC2Hint'
 import { mappingFor } from '../../engine/layout'
-import { Footer, TIER_LABEL, type LayoutProps } from './shared'
+import { Footer } from './shared'
+import { TIER_LABEL, type LayoutProps } from './common'
 
 export function Focus({ view, resetProgress }: LayoutProps) {
   const hand = mappingFor(view.currentChar)?.hand

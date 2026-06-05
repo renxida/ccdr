@@ -1,12 +1,5 @@
-/** Shared bits for the training-screen layout variants (M5). */
-import type { TrainerView } from '../../hooks/useTrainer'
-
-export const TIER_LABEL = ['word', 'phrase', 'sentence', 'paragraph']
-
-export interface LayoutProps {
-  view: TrainerView
-  resetProgress: () => void
-}
+/** Shared presentational components for the training-screen layout variants. */
+import type { TrainerView } from '../../hooks/trainerTypes'
 
 export function Footer({ resetProgress }: { resetProgress: () => void }) {
   return (
