@@ -7,8 +7,21 @@
  */
 import { useMemo } from 'react'
 import { LAYOUT, mappingFor } from '../engine/layout'
-import { hintIntensity } from '../engine/charStats'
-import type { CharStats, Direction, Finger, Hand, SwitchMapping } from '../engine/types'
+import { hintIntensity, masteryScore } from '../engine/charStats'
+import type { CharStat, CharStats, Direction, Finger, Hand, SwitchMapping } from '../engine/types'
+
+/**
+ * Per-label heatmap (SPEC §4 / keybr): the hint doubles as a proficiency map.
+ * - untrained char → neutral, quiet
+ * - practiced-but-weak char → amber + brighter (draws the eye to what needs work)
+ * - mastered char → fades into the background
+ */
+function heat(stat: CharStat | undefined): { fill: string; opacity: number } {
+  if (!stat || stat.samples === 0) return { fill: 'var(--color-dim)', opacity: 0.42 }
+  const m = masteryScore(stat)
+  if (m < 0.35) return { fill: 'var(--color-warn)', opacity: 0.55 + (0.35 - m) * 0.7 }
+  return { fill: 'var(--color-dim)', opacity: Math.max(0.22, 0.46 - m * 0.24) }
+}
 
 const HALF_W = 230
 const HALF_H = 260
@@ -145,6 +158,7 @@ export function CC2Hint({ targetChar, stats, only, className }: CC2HintProps) {
               const lx = cx + v.dx * LABEL_R
               const ly = cy + v.dy * LABEL_R + 4
               const isTargetDir = isTargetSwitch && target!.direction === dir
+              const h = heat(stats?.[ch])
               return (
                 <text
                   key={dir}
@@ -154,8 +168,8 @@ export function CC2Hint({ targetChar, stats, only, className }: CC2HintProps) {
                   fontFamily="var(--font-mono)"
                   fontSize={isTargetDir ? 17 : 11}
                   fontWeight={isTargetDir ? 700 : 400}
-                  fill={isTargetDir ? 'var(--color-accent)' : 'var(--color-dim)'}
-                  fillOpacity={isTargetDir ? Math.max(0.25, intensity) : 0.55}
+                  fill={isTargetDir ? 'var(--color-accent)' : h.fill}
+                  fillOpacity={isTargetDir ? Math.max(0.25, intensity) : h.opacity}
                 >
                   {ch}
                 </text>

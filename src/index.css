@@ -11,10 +11,11 @@
   --color-text: #e4e4e7;
   --color-dim: #71757e;
   --color-faint: #3a3d45;
-  --color-accent: #6ee7b7; /* mint — cursor / active */
+  --color-accent: #6ee7b7; /* mint — cursor / active / next key */
   --color-correct: #4ade80;
-  --color-error: #f87171;
+  --color-error: #f87171; /* red — a typo right now */
   --color-error-bg: rgba(248, 113, 113, 0.14);
+  --color-warn: #e9b872; /* amber — a key you've practiced but are still weak on */
 
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --font-sans: ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
